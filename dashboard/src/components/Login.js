@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleLogin = () => {
 
-    axios.post("http://localhost:3002/login", {
+    axios.post("http://stock-trading-backend-s0su.onrender.com/login", {
       email,
       password,
     })

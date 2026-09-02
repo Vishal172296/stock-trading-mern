@@ -9,7 +9,7 @@ const Signup = () => {
 
   const handleSignup = () => {
 
-    axios.post("http://localhost:3002/signup", {
+    axios.post("http://stock-trading-backend-s0su.onrender.com/signup", {
       username,
       email,
       password,
