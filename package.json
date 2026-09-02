@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3",
+    "react-router-dom": "^7.18.1"
+  }
+}
