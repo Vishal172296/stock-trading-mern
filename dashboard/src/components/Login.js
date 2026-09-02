@@ -29,7 +29,7 @@ const Login = () => {
 
   alert("Login Successful");
 
-  navigate("/");
+  window.location.href = "/";
 })
     .catch((err) => {
   console.log(err);
