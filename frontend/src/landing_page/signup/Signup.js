@@ -23,7 +23,7 @@ function Signup() {
       const response = await axios.post(`${API_URL}/signup`, formData);
 
       alert("Signup successful! Now please login on the Trading Dashboard.");
-      window.location.href = "/login";
+      window.location.href = "https://stock-trading-mern-z8g8-peach.vercel.app/login";
       
       setFormData({
         username: "",
