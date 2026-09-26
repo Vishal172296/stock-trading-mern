@@ -18,13 +18,12 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3002";
     try {
-      const response = await axios.post(
-        "https://stock-trading-backend-s0su.onrender.com/signup",
-        formData
-      );
+      const response = await axios.post(`${API_URL}/signup`, formData);
 
-      alert(response.data);
+      alert("Signup successful! Now please login on the Trading Dashboard.");
+      window.location.href = "http://localhost:3000/login";
       
       setFormData({
         username: "",

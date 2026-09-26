@@ -3,7 +3,7 @@ import api from "../api";
 import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
 
-const BuyActionWindow = ({ uid }) => {
+const SellActionWindow = ({ uid }) => {
   const stockName = typeof uid === "object" ? uid?.name : uid;
   const initialPrice = typeof uid === "object" ? uid?.price || 100 : 100;
 
@@ -14,7 +14,7 @@ const BuyActionWindow = ({ uid }) => {
 
   const generalContext = useContext(GeneralContext);
 
-  const handleBuyClick = async () => {
+  const handleSellClick = async () => {
     setLoading(true);
     setErrorMsg("");
     try {
@@ -22,14 +22,14 @@ const BuyActionWindow = ({ uid }) => {
         name: stockName,
         qty: Number(stockQuantity),
         price: Number(stockPrice),
-        mode: "BUY",
+        mode: "SELL",
       });
 
-      alert(response.data.message || `Successfully bought ${stockQuantity} shares of ${stockName}!`);
-      generalContext.closeBuyWindow();
+      alert(response.data.message || `Sold ${stockQuantity} shares of ${stockName}!`);
+      generalContext.closeSellWindow();
       generalContext.triggerRefresh();
     } catch (err) {
-      const message = err.response?.data?.message || err.message || "Buy Order Failed";
+      const message = err.response?.data?.message || err.message || "Sell Order Failed";
       setErrorMsg(message);
       alert("Error: " + message);
     } finally {
@@ -38,24 +38,22 @@ const BuyActionWindow = ({ uid }) => {
   };
 
   const handleCancelClick = () => {
-    generalContext.closeBuyWindow();
+    generalContext.closeSellWindow();
   };
-
-  const totalRequired = (Number(stockQuantity) * Number(stockPrice)).toFixed(2);
 
   return (
     <div
       className="container"
-      id="buy-window"
+      id="sell-window"
       style={{
-        borderTop: "4px solid #4184f3",
+        borderTop: "4px solid #ff5722",
         boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
       }}
     >
       <div
         className="header"
         style={{
-          background: "#4184f3",
+          background: "#ff5722",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -63,7 +61,7 @@ const BuyActionWindow = ({ uid }) => {
       >
         <div>
           <h3 style={{ margin: 0 }}>
-            BUY {stockName} <span style={{ opacity: 0.85 }}>x {stockQuantity} Qty</span>
+            SELL {stockName} <span style={{ opacity: 0.85 }}>x {stockQuantity} Qty</span>
           </h3>
           <span style={{ fontSize: "0.75rem", color: "#fff" }}>
             NSE • Market Execution
@@ -125,8 +123,10 @@ const BuyActionWindow = ({ uid }) => {
         </div>
 
         <div style={{ fontSize: "0.85rem", color: "#666", marginTop: "10px" }}>
-          Margin required:{" "}
-          <strong style={{ color: "#2962ff" }}>₹{totalRequired}</strong>
+          Estimated Proceeds:{" "}
+          <strong style={{ color: "#388e3c" }}>
+            ₹{(stockQuantity * stockPrice).toFixed(2)}
+          </strong>
         </div>
       </div>
 
@@ -141,22 +141,24 @@ const BuyActionWindow = ({ uid }) => {
         }}
       >
         <span style={{ fontSize: "0.8rem", color: "#666" }}>
-          Instant zero-brokerage order
+          Charges: ₹15.00 (STT & Brokerage)
         </span>
         <div>
           <button
-            className="btn btn-blue"
+            className="btn"
             style={{
+              background: "#ff5722",
+              color: "#fff",
               border: "none",
               cursor: loading ? "not-allowed" : "pointer",
               padding: "8px 18px",
               borderRadius: "3px",
               fontWeight: 600,
             }}
-            onClick={handleBuyClick}
+            onClick={handleSellClick}
             disabled={loading}
           >
-            {loading ? "Buying..." : "Buy"}
+            {loading ? "Selling..." : "Sell"}
           </button>
           <button
             className="btn btn-grey"
@@ -177,4 +179,4 @@ const BuyActionWindow = ({ uid }) => {
   );
 };
 
-export default BuyActionWindow;
+export default SellActionWindow;
