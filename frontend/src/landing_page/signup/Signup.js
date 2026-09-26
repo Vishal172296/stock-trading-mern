@@ -18,12 +18,12 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3002";
+    const API_URL = process.env.REACT_APP_API_URL ;
     try {
       const response = await axios.post(`${API_URL}/signup`, formData);
 
       alert("Signup successful! Now please login on the Trading Dashboard.");
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = "/login";
       
       setFormData({
         username: "",
